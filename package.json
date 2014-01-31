@@ -1,6 +1,6 @@
 {
     "name": "grunt-dapper",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Rollups + Dependency Management",
     "author": {
         "name": "Andre Bluehs",
@@ -8,15 +8,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:helloandre/dapper.git"
+        "url": "git@github.com:helloandre/grunt-dapper.git"
     },
     "bugs": {
-        "url": "https://github.com/helloandre/dapper/issues"
+        "url": "https://github.com/helloandre/grunt-dapper/issues"
     },
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://github.com/helloandre/dapper/blob/master/LICENSE-MIT"
+            "url": "https://github.com/helloandre/grunt-dapper/blob/master/LICENSE-MIT"
         }
     ],
     "dependencies": {
