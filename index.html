@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Grunt-dapper by helloandre</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Grunt-dapper</h1>
+        <p>Asset and Dependency Management</p>
+
+        <p class="view"><a href="https://github.com/helloandre/grunt-dapper">View the Project on GitHub <small>helloandre/grunt-dapper</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/helloandre/grunt-dapper/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/helloandre/grunt-dapper/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/helloandre/grunt-dapper">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="dapper" class="anchor" href="#dapper"><span class="octicon octicon-link"></span></a>Dapper</h1>
+
+<p>Dapper is an asset compression and dependency management tool. It allows you to declare "lists" of assets that can be combined, and minified to reduce the number of HTTP requests your app has to make. Then when they are loaded dependencies are resolved.</p>
+
+<p>The reason it does both compression and dependencies is because it automatically writes code to manage dependencies. This was born out of a need to retrofit compression and dependency management into an existing project. When you start compressing things into files, order of inclusion in the compressed file becomes extremely important... unless you have dependency management take care of that for you.</p>
+
+<p>Dapper works well for getting your project from including multiple script/style files on a page to a much smaller number of files very quickly. It was born out of a need to retrofit a project to do just that.</p>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<pre><code>npm install grunt-dapper
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Dapper has 3 parts: </p>
+
+<ol>
+<li>grunt config</li>
+<li>rollups</li>
+<li>your js files</li>
+</ol><h3>
+<a name="1-grunt" class="anchor" href="#1-grunt"><span class="octicon octicon-link"></span></a>1. Grunt</h3>
+
+<p>An example Grunt config:</p>
+
+<pre><code>grunt.initConfig({
+    dapper: {
+        dist: {
+            src: "example/assets/",
+            dest: "example/public/",
+            minify: true
+        }
+    }
+});
+
+grunt.loadNpmTask('grunt-dapper');
+
+/**
+ * Example tasks
+ */
+grunt.registerTask('build', ['dapper']);
+grunt.registerTask('quick', function() {
+    grunt.config.set('dapper.dist.minify', false);
+    grunt.task.run('dapper');
+});
+</code></pre>
+
+<h3>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
+
+<h4>
+<a name="src-required" class="anchor" href="#src-required"><span class="octicon octicon-link"></span></a>src (required)</h4>
+
+<p>Type: <code>string</code>
+Default: <code>null</code></p>
+
+<p>the location of the three directories: <code>css/</code>, <code>js/</code> and <code>rollup/</code></p>
+
+<h4>
+<a name="dest-required" class="anchor" href="#dest-required"><span class="octicon octicon-link"></span></a>dest (required)</h4>
+
+<p>Type: <code>string</code>
+Default: <code>null</code></p>
+
+<p>where you would like the output sent. directory structure from the <code>rollup/</code> directory is preserved.</p>
+
+<h4>
+<a name="minify" class="anchor" href="#minify"><span class="octicon octicon-link"></span></a>minify</h4>
+
+<p>Type: <code>boolean</code>
+Default: <code>true</code></p>
+
+<p>wether or not to run <code>cssmin</code> or <code>uglify-js</code> on the output.</p>
+
+<h3>
+<a name="2-rollups" class="anchor" href="#2-rollups"><span class="octicon octicon-link"></span></a>2. Rollups</h3>
+
+<p>A json list of files you want included in a similarly named css or js file. See <code>example/assets/rollup/</code> directory. A rollup will look like this:</p>
+
+<pre><code>{
+    "files": [
+        "index/index",
+        "lib/somelib"
+    ]
+}
+</code></pre>
+
+<p>The name and location of the output file is determined by the name and location of the rollup file relative to the <code>dest</code> option in the grunt config.</p>
+
+<p>The type of output is determined by what directory inside <code>rollup/</code> it's in. Either <code>rollup/js/</code> or <code>rollup/css/</code>. You do not need to include the filetype in the list.</p>
+
+<h3>
+<a name="2-javascript-dependencies-your-js-files" class="anchor" href="#2-javascript-dependencies-your-js-files"><span class="octicon octicon-link"></span></a>2. Javascript Dependencies (your js files)</h3>
+
+<p>All you need to do to your existing javascript files is add lines at the top declaring which other js files it depends on.</p>
+
+<p>Say you have a file at <code>js/index/index.js</code> that uses bits from two other libraries located in other files. The top of <code>js/index/index.js</code> would look like this:</p>
+
+<pre><code>// @@require js/lib/mylib
+// @@require js/common/otherlib
+
+var Index = function() {
+...
+</code></pre>
+
+<p><code>js/index/index.js</code> would then wait until the other two libs have been loaded until it ran. This allows arbitrary listing in rollups without you having to worry about what order everything is included on the page.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/helloandre">helloandre</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
