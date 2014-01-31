@@ -1,11 +1,24 @@
 {
     "name": "grunt-dapper",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Rollups + Dependency Management",
     "author": {
         "name": "Andre Bluehs",
         "url": "http://andrebluehs.net"
     },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:helloandre/dapper.git"
+    },
+    "bugs": {
+        "url": "https://github.com/helloandre/dapper/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/helloandre/dapper/blob/master/LICENSE-MIT"
+        }
+    ],
     "dependencies": {
         "uglify-js": "~2.4.10",
         "cssmin": "~0.4.1",
@@ -20,5 +33,9 @@
     },
     "scripts": {
         "test": "grunt test"
-    }
+    },
+    "keywords": [
+        "gruntplugin",
+        "dependencies"
+    ]
 }
