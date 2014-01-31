@@ -20,10 +20,14 @@ module.exports = function(grunt) {
             src = this.data.src,
             dest = this.data.dest,
             // should we compress the sources too?
-            minify = this.data.minify || true,
+            minify = this.data.minify,
             fetcher = require('./lib/fetcher'),
             // let fetcher go and tell us which files to do things with
             files = fetcher.fetch(this.data.src);
+            
+        if (minify === undefined) {
+            minify = true;
+        }
             
         if (src === undefined) {
             throw new Error("src not declared");
