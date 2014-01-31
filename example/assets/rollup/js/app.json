@@ -1,0 +1,6 @@
+{
+    "files": [
+        "index/index",
+        "lib/somelib"
+    ]
+}

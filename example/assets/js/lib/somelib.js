@@ -1,0 +1,1 @@
+document.write('somelib loaded<br>');

@@ -1,0 +1,24 @@
+{
+    "name": "grunt-dapper",
+    "version": "0.1.0",
+    "description": "Rollups + Dependency Management",
+    "author": {
+        "name": "Andre Bluehs",
+        "url": "http://andrebluehs.net"
+    },
+    "dependencies": {
+        "uglify-js": "~2.4.10",
+        "cssmin": "~0.4.1",
+        "glob": "~3.2.8"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-contrib-jshint": "~0.8.0"
+    },
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "scripts": {
+        "test": "grunt test"
+    }
+}
