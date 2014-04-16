@@ -57,15 +57,12 @@ Fetcher.prototype.fetch = function(srcpath) {
  */
 Fetcher.prototype._build = function(filename) {
     var data = JSON.parse(this.fs.readFileSync(filename, this.fs_options)),
-        filepath_arr = filename.replace(this.srcpath + this.rolluppath, '').split('/'),
-        filetype = filepath_arr.shift(),
-        filepath = filepath_arr.join('/').replace('.json', '');
+        filepath_arr = filename.replace(this.srcpath + this.rolluppath, '').split('/');
+    
+    data.filetype = filepath_arr.shift(),
+    data.dest = filepath_arr.join('/').replace('.json', '');
         
-    this.output.push({
-        dest: filepath,
-        filetype: filetype,
-        files: data.files
-    });
+    this.output.push(data);
 };
 
 module.exports = new Fetcher();

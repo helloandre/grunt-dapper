@@ -137,8 +137,11 @@ module.exports = function(grunt) {
             var fulldestmin = fulldestpath(list_obj.dest, list_obj.filetype, true);
             var fulldest = fulldestpath(list_obj.dest, list_obj.filetype);
 
-            // apply compression
-            if (minify) {
+            // apply compression, but only if we expliclty say not to
+            // on this particular rollup
+            // this allows pre-compiled libraries (my usecase was tinymce)
+            // that are quite large that you don't need to recompile frequently
+            if (minify && !list_obj.never_minify) {
                 switch (list_obj.filetype) {
                     case 'js':
                         var uglify = require('uglify-js'),
@@ -161,7 +164,7 @@ module.exports = function(grunt) {
 
         // now a special case to insert our dapper code into 
         // the destination directory so that it is requestable
-        var dc = require('./data/client');
-        grunt.file.write(this.data.dest + 'js/dapper.min.js', dc());
+        // var dc = require('./data/client');
+        // grunt.file.write(this.data.dest + 'js/dapper.min.js', dc());
     });
 };
