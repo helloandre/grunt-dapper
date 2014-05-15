@@ -1,6 +1,6 @@
 {
     "name": "grunt-dapper",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Rollups + Dependency Management",
     "author": {
         "name": "Andre Bluehs",
