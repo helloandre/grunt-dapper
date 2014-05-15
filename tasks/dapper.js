@@ -164,7 +164,7 @@ module.exports = function(grunt) {
 
         // now a special case to insert our dapper code into 
         // the destination directory so that it is requestable
-        // var dc = require('./data/client');
-        // grunt.file.write(this.data.dest + 'js/dapper.min.js', dc());
+        var dc = require('./data/client');
+        grunt.file.write(this.data.dest + 'js/dapper.min.js', dc());
     });
 };
